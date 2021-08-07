@@ -9,7 +9,7 @@
 class Solution:
     # @return an integer
     def lengthOfLongestSubstring(self, s):
-        longest, start, visited = 0, 0, [False for _ in xrange(256)]
+        longest, start, visited = 0, 0, [False for _ in range(256)]
         for i, char in enumerate(s):
             if visited[ord(char)]:
                 while char != s[start]:
@@ -21,5 +21,21 @@ class Solution:
             longest = max(longest, i - start + 1)
         return longest
 
+
+def longestSubstringWithoutDuplication(string):
+    last_seen = {}
+    longest = [0, 1]
+    start_id = 0
+    for i, char in enumerate(string):
+        if char in last_seen:
+            start_id = max(start_id, last_seen[char] + 1)
+        if longest[1] - longest[0] < i - start_id + 1:
+            longest = [start_id, i + 1]
+        last_seen[char] = i
+    return string[longest[0]: longest[1]]
+
+
 if __name__ == "__main__":
-    print Solution().lengthOfLongestSubstring("abcabcbb")
+    print(Solution().lengthOfLongestSubstring("abcabcbb"))
+    print(longestSubstringWithoutDuplication('abcabcbb'))
+    print(longestSubstringWithoutDuplication('clementl'))

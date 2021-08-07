@@ -4,9 +4,7 @@
 from random import randint
 
 class Solution:
-    # @param {integer[]} nums
-    # @param {integer} k
-    # @return {integer}
+    # quick_select with quick_sort
     def findKthLargest(self, nums, k):
         left, right = 0, len(nums) - 1
         while left <= right:
@@ -23,7 +21,7 @@ class Solution:
         pivot_value = nums[pivot_idx]
         new_pivot_idx = left
         nums[pivot_idx], nums[right] = nums[right], nums[pivot_idx]
-        for i in xrange(left, right):
+        for i in range(left, right):
             if nums[i] > pivot_value:
                 nums[i], nums[new_pivot_idx] =  nums[new_pivot_idx], nums[i]
                 new_pivot_idx += 1

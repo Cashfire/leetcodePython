@@ -26,6 +26,7 @@ def print_LL(head):
         head = head.next
     print(result)
 
+
 def shift_LL(head, k):
     n = 1
     old_tail = head
@@ -50,12 +51,18 @@ if __name__ == "__main__":
     head1 = array_to_LL(arr1)
     print("Before shifting: ")
     print_LL(head1)
+    print("After shifting: ")
     result11 = shift_LL(head1, 1)
-    print_LL(head1)
     print_LL(result11)
+
+    head1 = array_to_LL(arr1)
     result12 = shift_LL(head1, 5)
     print_LL(result12)
+
+    head1 = array_to_LL(arr1)
     result13 = shift_LL(head1, -1)
     print_LL(result13)
+
+    head1 = array_to_LL(arr1)
     result14 = shift_LL(head1, -5)
     print_LL(result14)

@@ -1,7 +1,56 @@
 
 class SortAlgos:
-    def quick_sort(self):
-        pass
+    def quick_sort(self, arr, k,  l=None, r=None):
+    # O(NlogN) time and O(logN) space
+        if l is None:
+            l, r = 0, len(arr) -1
+        if l >= r:
+            return
+        j = self.partition(arr, l, r)
+        self.quick_sort(arr,k, l, j - 1)
+        self.quick_sort(arr,k, j + 1, r)
+
+    def partition(self,arr, l, r):
+        pivot = arr[l]
+        i, j = l+1, r
+        while i <= j:
+            while arr[i] <= pivot:
+                if i == r:
+                    break
+                i += 1
+            while arr[j] >= pivot:
+                if j == l:
+                    break
+                j -= 1
+            if i >= j:
+                break
+            self.__swap(i, j, arr)
+        self.__swap(l, j, arr)
+        return j
+
+    def quick3way(self, arr, l=None, r=None):
+        # good if array has lots of duplicates element
+        if l is None:
+            l, r = 0, len(arr) -1
+        if r <= l:
+            return
+        pivot = arr[l]
+        p1, p2 = l, r
+        i = l + 1
+        while i <= p2:
+            if arr[i] < pivot:
+                self.__swap(i, p1, arr)
+                p1 += 1
+                i += 1
+            elif arr[i] > pivot:
+                self.__swap(i, p2, arr)
+                p2 -= 1
+            else:
+                i += 1
+        self.quick3way(arr, l, p1 -1)
+        self.quick3way(arr, p2 + 1, r)
+
+    # def quick3way(self, array):
 
     def __swap(self, i, j, array):
         temp = array[j]
@@ -84,9 +133,72 @@ def selection_sort(array):
         array[min_id] = temp
     return array
 
+
+def quickselect(array, k):
+    # O(n) time and O(1) space. time worst O(n^2)
+    return qs_helper(array, 0, len(array) - 1, k-1)
+
+
+def qs_helper(arr, l, r, k):
+    while True:
+        pivot = arr[l]
+        i, j = l + 1, r
+        while i <= j:
+            while arr[i] <= pivot and i < r:
+                i += 1
+            while arr[j] >= pivot and j > l:
+                j -= 1
+            if i >= j:
+                break
+            swap(i, j, arr)
+
+        swap(l, j, arr)
+        if j == k:
+            return arr[j]
+        elif j < k:
+            l = j + 1
+        else:
+            r = j - 1
+
+
+def swap(i, j, arr):
+    temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+
+def quick3way(arr, l=None, r=None):
+    # good if array has lots of duplicates element
+    if l is None:
+        l, r = 0, len(arr) -1
+    if r <= l:
+        return
+    pivot = arr[l]
+    p1, p2 = l, r
+    i = l + 1
+    while i <= p2:
+        if arr[i] < pivot:
+            swap(i, p1, arr)
+            p1 += 1
+            i += 1
+        elif arr[i] > pivot:
+            swap(i, p2, arr)
+            p2 -= 1
+        else:
+            i += 1
+    quick3way(arr, l, p1 -1)
+    quick3way(arr, p2 + 1, r)
+
+
 if __name__ == "__main__":
     A = [3, 6, 9, 4, 2]
-    arr2 = [8, 5, 2, 9, 5, 6, 3]
+    arr2 = [8, 5, 3, 9, 5, 6, 2]
+    arr3 = [43, 42, 37]
     # SortAlgos().bubble_sort_brute_force(A)
-    selection_sort(A)
-    print(A)
+    # selection_sort(A)
+    # print(A)
+
+    # SortAlgos().quick_sort(arr3, 1)
+    # print(arr3)
+
+    result = quickselect(arr3, 1)
+    print(result)

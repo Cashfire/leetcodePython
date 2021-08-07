@@ -15,34 +15,23 @@ class TrieNode:
         
 
 class Trie:
-
     def __init__(self):
         self.root = TrieNode()
 
-    # @param {string} word
-    # @return {void}
-    # Inserts a word into the trie.
     def insert(self, word):
         cur = self.root
         for c in word:
-            if not c in cur.leaves:
+            if c not in cur.leaves:
                 cur.leaves[c] = TrieNode()
             cur = cur.leaves[c]
         cur.is_string = True
 
-    # @param {string} word
-    # @return {boolean}
-    # Returns if the word is in the trie.
     def search(self, word):
         res, node = self.childSearch(word)
         if res:
             return node.is_string
         return False        
 
-    # @param {string} prefix
-    # @return {boolean}
-    # Returns if there is any word in the trie
-    # that starts with the given prefix.
     def startsWith(self, prefix):
         return self.childSearch(prefix)[0]
 
@@ -61,13 +50,13 @@ class Trie:
 # trie.search("key")
 
 if __name__ == "__main__":
+    trie1 = Trie()
+    trie1.insert('this big')
+    print(trie1.search('big'))
     # nodes = {}
     # nodes['b'] = {'c':{'*': True}}
     # nodes['a'] = {'b': nodes['b'].copy()}
     #
     # nodes['b']['a'] = nodes['a'].copy()
     # print(nodes['b'])
-    arr1 = [1,3,2,5,4]
-    for i in range(1,len(arr1)-1):
-        if arr1[i-1] < arr1[i] < arr1[i+1]:
-            print('arr[',i,']=',arr1[i])
+
